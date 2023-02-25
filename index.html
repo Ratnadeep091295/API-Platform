@@ -1,0 +1,520 @@
+
+
+
+
+     
+
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>PAYTHROUGH|Dashboard</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Bootstrap CSS CDN -->
+      <link rel="stylesheet" href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/css/bootstrap.min.css">
+      <!-- Our Custom CSS -->
+      <link rel="stylesheet" href="css/dashboard.css">
+       <link rel="stylesheet" href="css/responsive.css">
+       <!--fabicon-->
+       <link rel="shortcut icon" href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/favicon.png">
+      <!-- Font Awesome JS -->
+      <script src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/js/solid.js"></script>
+      <script src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/js/fontawesome.js"></script>
+      <link rel="stylesheet" href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/css/lobibox.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/ca9b2d0517.js"></script>
+
+     <script src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/js/lobibox.js"></script>
+     <script src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/js/lobibox-demo.js"></script>
+     <script src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/js/dashboard.js"></script>
+
+      <script>
+        // VIEW ALL SUBSCRIBED SERVICES : MAIN PAGE
+        function viewallsubscribed(){
+            document.location="subscribeServices.php";
+        }
+
+        // VIEW ALL SUBSCRIPTION SERVICES : MAIN PAGE
+        function viewallsubscription(){
+            document.location="subscriptionServices.php";
+        }
+        
+        // LOAD SANDBOX AND PRODUCTION DATA TO DASHBOARD WITH VIEW
+        /* PASSING VALUE 1 AND 2: 
+         * WHILE 1 THEN SANDBOX
+         * WHILE 2 THEN PRODUCTION */
+        function sandboxapi(baseurl){          
+            $("#sandboxitem").addClass("active show");
+            $("#productionitem").removeClass("active show");            
+            $("#tab_default_1").attr('class','tab-pane active fade in show');
+            $("#tab_default_2").attr('class','tab-pane fade in');
+            $("#productionServices").show();
+
+              $.ajax({
+                  type:'POST'
+                  ,data:{data:"1"}                           
+                  ,url:baseurl+'linkingPage/loadDashboardSandboxProductionServices'
+                  ,success:function(data,textStatus,xhr){                      
+                  $('#subscriptionboxsection').html(data);                            
+                  }
+              });                
+        }
+        function productionapi(baseurl){
+            $("#productionitem").addClass("active show"); 
+            $("#sandboxitem").removeClass("active show");            
+            $("#tab_default_1").attr('class','tab-pane fade');
+            $("#tab_default_2").attr('class','tab-pane fade in active show');
+            $("#productionServices").hide();
+
+                $.ajax({
+                   type:'POST'
+                   ,data:{data:"2"}                           
+                   ,url:baseurl+'linkingPage/loadDashboardSandboxProductionServices'
+                   ,success:function(data,textStatus,xhr){                      
+                   $('#subscriptionboxsection').html(data);                            
+                   }
+                }); 
+        }
+        /* LOAD SANDBOX AND PRODUCTION API KEY END */
+        
+        // SANDBOX API KEY GENERATE
+        function sandboxApiGenerate(baseUrl,sandBoxApi){
+                      
+            var apiType = sandBoxApi;
+            $.ajax({
+                type:'POST'
+                ,data:{data:''}                           
+                ,url:baseUrl+'linkingPage/generateSandboxAPIKey'
+                ,success:function(data,textStatus,xhr){                      
+                //$('#sandboxApiGenerateDiv').html(data);                            
+                $('.sandBoxApiKeyDiv').html(data);                            
+                }
+            });  
+            loadApiKey(apiType) ;
+        }
+        
+        //PRODUCTION API KEY GENERATE 
+         function productionApiGenerate(baseUrl,productionKeyAPI){
+            $.ajax({
+                type:'POST'
+                ,data:{data:''}                           
+                ,url:baseUrl+'linkingPage/generateProductionAPIKey'
+                ,success:function(data,textStatus,xhr){                                
+                $('.productionApiDiv').html(data);                            
+                }
+            }); 
+            var apiType = productionKeyAPI;
+            loadApiKey(apiType,productionKeyAPI) ;
+        }
+        
+        // LOAD SANDBOX AND PRODUCTION API KEYS WITH VIEW 
+        function loadApiKey(apiType){
+            if(apiType == ""){
+                $("#apiKeydiv").load("linkingPage/showSandboxProductionTabview.php");   
+            }  
+        }
+    
+        function getResolution() {         
+             let screenWidth = window.screen.width * window.devicePixelRatio;
+             let screenHeight = window.screen.height * window.devicePixelRatio;    
+        }    
+    </script>
+   </head>
+   
+    <body onload="loadApiKey('');sandboxapi('http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/')">
+
+
+
+
+
+        
+
+ 
+      
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            
+
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <a href='dashboard'><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/logo.png" alt="logo" title=""></a>
+    </div>
+    <ul class="list-unstyled components">
+        <li 
+        class='active'        >  <a href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/dashboard"><span><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/dashboard-icon.png" title="" alt=""></span> Dashboard</a></li>
+        <li
+                    
+        >  <a href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/subscriptionServices"><span><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscription-icon.png" title="" alt=""></span> Subscription API</a></li>
+       
+        <li
+          
+        >
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="               
+            false 
+             " class="dropdown-toggle"><span><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribed.png" title="" alt=""></span> Subscribed api</a>
+            <ul class="collapse list-unstyled
+            
+                     
+                
+            " id="pageSubmenu">
+                                <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=0  type="submit" style="cursor:pointer;">REPORT</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=1  type="submit" style="cursor:pointer;">MOVIE TICKET</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=2  type="submit" style="cursor:pointer;">PAN CARD</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=3  type="submit" style="cursor:pointer;">MPOS WITHDRAW</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=4  type="submit" style="cursor:pointer;">MPOS BALANCE ENQUIRY</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=5  type="submit" style="cursor:pointer;">RECHARGE</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=6  type="submit" style="cursor:pointer;">ELECTRICITY</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=7  type="submit" style="cursor:pointer;">MONEY TRANSFER</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=8  type="submit" style="cursor:pointer;">AEPS BALANCE ENQUIRY</button>
+                            </form>
+                        </li>
+                                       <li
+                                     
+                    
+                >
+                            <form method="post">
+                            <button class="submenu-btn" name="detailsBtn" value=9  type="submit" style="cursor:pointer;">AEPS WITHDRAW</button>
+                            </form>
+                        </li>
+                                   </ul>
+        </li>
+        
+        <li
+             
+        >
+            <a href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/report"><span><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/growth.png" title="" alt=""></span> Report</a>
+        </li>
+        <li
+             
+        >
+            <a href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/view-merchant"><span><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/growth.png" title="" alt=""></span> Merchant</a>
+        </li>
+        
+        
+      <li
+                    
+        >
+            <a href="#settingSubmenu" data-toggle="collapse" aria-expanded="
+            false   
+            " class="dropdown-toggle"><span><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/settings.png" title="" alt=""></span> Settings</a>
+            <ul class="list-unstyled collapse
+                 
+            " id="settingSubmenu">
+                <li
+                                     
+                >
+                    <a href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/changePassword"><span><i class="fa fa-key" aria-hidden="true"></i></span> Change Password</a>
+                </li>                
+            </ul>
+        </li>
+        <li
+          
+        >
+            <a href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/profile"><span><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/profile-icon.png" title="" alt=""></span> Profile</a>
+        </li>
+    </ul>
+    <div class="sidebar-footer">
+        <a href="logout"><span><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/logout.png" title="" alt=""></span> Logout</a>
+    </div>
+</nav>            <!-- Page Content Holder -->
+            <div id="content" class="main-panel">
+                <!-- Page header -->
+                <header class="header">
+    <button type="button" id="sidebarCollapse" class="navbar-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <nav class="navbar navbar-expand-md navbar-top">
+        <a class="navbar-brand" href="#" style="cursor: auto;">
+            Dashboard        </a>
+        <div class="navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                    </a>
+                    <div class="dropdown-menu notification" aria-labelledby="navbarDropdown2">
+                        <ul>
+                            <li class="notifications-header">
+                                <p class="text-muted small">You have 0 new messages</p>
+                            </li>
+                            <li>
+                                <ul class="notifications-list">
+                                                                       
+                                </ul>
+                            </li>
+                            <a class="dropdown-item" href="javascript:void(0);">Show More</a>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown d-sm-none d-md-block d-none d-sm-block">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="img-thumb">
+                          
+                             <img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/profile-img.png" alt="" title="">                             
+                        </span> Anushree                            
+                            
+                    </a> 
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                        <a class="dropdown-item" href="javascript:void(0);">Settings</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Notification</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Help</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/logout">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>                <!-- Subscribe API SECTION -->
+                <section class="tab-view" id="apiKeydiv"></section>
+                
+                <div id="sandboxApiGenerateDiv"></div>
+                <!-- Subscribe API SECTION -->
+
+              <section class="subscriptionbox" id="subscriptionboxsection">    
+
+
+     
+
+    
+    
+        <h2 class="heading">Subscribed API <span><a href="javascript:viewallsubscribed();" class="view-btn">View All</a></span></h2>
+    <div class="row">
+          
+ <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="sub-boxes">
+        <form method="post">
+            <h3>API:   REPORT <span><button type="submit" name="detailsBtn" value="0" class="more-submit-btn">More <svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><!-- <i class="fas fa-angle-right" aria-hidden="true"></i> --></button></span><p></p></h3>
+        </form>
+       <p>You can easily request for topup to be added to fulfill your transactional needs.
+With the top-up service of paythrough.in, you can easily add real money to your account and use it further for making all sorts of financial transactions.</p>
+       <div class="sub-image"><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribe.jpg" class="mx-auto d-block rounded-circle" alt="" title=""></div>
+       <ul class="sublist">
+          <li><svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas" data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z"></path></svg><!-- <i class="fas fa-calendar-alt" aria-hidden="true"></i> --> 2020-04-07</li>
+          <li class="pricetag"><svg class="svg-inline--fa fa-rupee-sign fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="rupee-sign" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path></svg><!-- <i class="fas fa-rupee-sign" aria-hidden="true"></i> --> 29000/-</li>
+       </ul>
+       <div class="productkey">
+          <form action="" method="post">
+             <label>Product Key</label>
+             <div class="copy-box">
+                 <input type="text" class="form-control" value="SANDvGeWxbjf" id="myInput0" readonly="">
+                <button onclick="myFunction()" type="button" class="copy-btn">Copy</button>
+             </div>
+          </form>
+       </div>
+    </div>
+ </div>  
+          
+ <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="sub-boxes">
+        <form method="post">
+            <h3>API:   MOVIE TICKET <span><button type="submit" name="detailsBtn" value="1" class="more-submit-btn">More <svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><!-- <i class="fas fa-angle-right" aria-hidden="true"></i> --></button></span><p></p></h3>
+        </form>
+       <p>Movies have always been a great source of entertainment. Plan for a movie anytime anywhere with our online movie ticket booking services. Now book your tickets instantly.
+paythrough.in allows you to check the show timings and list of multiplexes or movie theatres so that you can easily book and purchase movie tickets online.</p>
+       <div class="sub-image"><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribe.jpg" class="mx-auto d-block rounded-circle" alt="" title=""></div>
+       <ul class="sublist">
+          <li><svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas" data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z"></path></svg><!-- <i class="fas fa-calendar-alt" aria-hidden="true"></i> --> 2020-04-03</li>
+          <li class="pricetag"><svg class="svg-inline--fa fa-rupee-sign fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="rupee-sign" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path></svg><!-- <i class="fas fa-rupee-sign" aria-hidden="true"></i> --> 27000/-</li>
+       </ul>
+       <div class="productkey">
+          <form action="" method="post">
+             <label>Product Key</label>
+             <div class="copy-box">
+                 <input type="text" class="form-control" value="SANDTfmWCxMW" id="myInput1" readonly="">
+                <button onclick="myFunction()" type="button" class="copy-btn">Copy</button>
+             </div>
+          </form>
+       </div>
+    </div>
+ </div>  
+          
+ <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="sub-boxes">
+        <form method="post">
+            <h3>API:   PAN CARD <span><button type="submit" name="detailsBtn" value="2" class="more-submit-btn">More <svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><!-- <i class="fas fa-angle-right" aria-hidden="true"></i> --></button></span><p></p></h3>
+        </form>
+       <p>PAN card is one of the essential documents one should possess.
+A permanent account number (PAN) is a ten-digit alphanumeric number, issued in the form of a laminated card, by the Indian Income Tax Department, to any "person" who applies for it.
+Now you can check the status of your Pan Card or simply apply for a new one with paythrough.in.</p>
+       <div class="sub-image"><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribe.jpg" class="mx-auto d-block rounded-circle" alt="" title=""></div>
+       <ul class="sublist">
+          <li><svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas" data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z"></path></svg><!-- <i class="fas fa-calendar-alt" aria-hidden="true"></i> --> 2020-04-03</li>
+          <li class="pricetag"><svg class="svg-inline--fa fa-rupee-sign fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="rupee-sign" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path></svg><!-- <i class="fas fa-rupee-sign" aria-hidden="true"></i> --> 28000/-</li>
+       </ul>
+       <div class="productkey">
+          <form action="" method="post">
+             <label>Product Key</label>
+             <div class="copy-box">
+                 <input type="text" class="form-control" value="SANDEnH6qGgf" id="myInput2" readonly="">
+                <button onclick="myFunction()" type="button" class="copy-btn">Copy</button>
+             </div>
+          </form>
+       </div>
+    </div>
+ </div>  
+          
+ <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="sub-boxes">
+        <form method="post">
+            <h3>API:   MPOS WITHDRAW <span><button type="submit" name="detailsBtn" value="3" class="more-submit-btn">More <svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><!-- <i class="fas fa-angle-right" aria-hidden="true"></i> --></button></span><p></p></h3>
+        </form>
+       <p>MPO is a type of payment system that is based on the Unique Identification Number and allows Aadhaar card holders to seamlessly make financial transactions through Aadhaar-based authentication. The AEPS system aims to empower all sections of the society by making financial and banking services available to all through Aadhaar.<br>Making the best use of AEPS (Aadhaar Enabled Payment System), paythrough.in provides you with a simple and secure platform to help all Aadhaar card holders smoothly carry out different banking and financial transactions such as payments, fund transfers, balance enquiry, deposits, withdrawals, and others.</p>
+       <div class="sub-image"><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribe.jpg" class="mx-auto d-block rounded-circle" alt="" title=""></div>
+       <ul class="sublist">
+          <li><svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas" data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z"></path></svg><!-- <i class="fas fa-calendar-alt" aria-hidden="true"></i> --> 2020-03-27</li>
+          <li class="pricetag"><svg class="svg-inline--fa fa-rupee-sign fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="rupee-sign" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path></svg><!-- <i class="fas fa-rupee-sign" aria-hidden="true"></i> --> 29000/-</li>
+       </ul>
+       <div class="productkey">
+          <form action="" method="post">
+             <label>Product Key</label>
+             <div class="copy-box">
+                 <input type="text" class="form-control" value="SANDSgyD2USy" id="myInput3" readonly="">
+                <button onclick="myFunction()" type="button" class="copy-btn">Copy</button>
+             </div>
+          </form>
+       </div>
+    </div>
+ </div>  
+    </div>
+        
+           </section>
+                
+                <div id="productionApiGenerateDiv"></div>
+                
+                <!-- Subscription API SECTION -->
+                <section class="subscriptionbox subscripted" id="productionServices">
+                    <h2 class="heading">Subscription API <span><a href="javascript:viewallsubscription();" class="view-btn">View All</a></span></h2>
+                    <div class="row">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="sub-boxes">
+                                    <h3>API name   :   SUPPORT</h3>
+                                    <p>Whether you have queries related to any of the services offered or you simply face any technological issue, the support staff of paythrough.in is always ready to help you. You will surely get the best support.
+Our topmost priority has been to give customers the best support from our end at the time of need. Achieving customer satisfaction in problem handling and giving corrective solutions is our main concern. </p>
+                                    <div class="sub-image"><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribe2.jpg" class="mx-auto d-block rounded-circle"  alt="" title=""/></div>
+                                    <div class="pricetag"><i class="fas fa-rupee-sign"></i> 29000</div>
+                                    <div class="text-center">
+                                        <form method="post">
+                                            <button type="submit" style="cursor: pointer;border:none;"  name="buynowBtn" value=0 class="buynow-btn">Buy Now</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="sub-boxes">
+                                    <h3>API name   :   MUTUAL FUNDS</h3>
+                                    <p>Mutual funds are operated by professional money managers, who allocate the fund's assets and attempt to produce capital gains or income for the fund's investors. A mutual fund's portfolio is structured and maintained to match the investment objectives stated in its prospectus.
+paythrough.in offers 100% paperless solution for your investments in Mutual Funds and SIPs. It also provides you with easy access to all your Mutual Fund investments. </p>
+                                    <div class="sub-image"><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribe2.jpg" class="mx-auto d-block rounded-circle"  alt="" title=""/></div>
+                                    <div class="pricetag"><i class="fas fa-rupee-sign"></i> 29000</div>
+                                    <div class="text-center">
+                                        <form method="post">
+                                            <button type="submit" style="cursor: pointer;border:none;"  name="buynowBtn" value=1 class="buynow-btn">Buy Now</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="sub-boxes">
+                                    <h3>API name   :   FLIGHT BOOKING</h3>
+                                    <p>Booking flights online just got easier, no need to go to a travel agent or middleman get your tickets booked.
+Whether you want to book flight tickets for the purpose of leisure or business, paythrough.in helps you book them without any hassle. </p>
+                                    <div class="sub-image"><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribe2.jpg" class="mx-auto d-block rounded-circle"  alt="" title=""/></div>
+                                    <div class="pricetag"><i class="fas fa-rupee-sign"></i> 26000</div>
+                                    <div class="text-center">
+                                        <form method="post">
+                                            <button type="submit" style="cursor: pointer;border:none;"  name="buynowBtn" value=2 class="buynow-btn">Buy Now</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="sub-boxes">
+                                    <h3>API name   :   CREDIT CARD</h3>
+                                    <p>A credit card allows you to borrow money to buy things. Every month, a bill is generated specifying the amount we need to pay back as used on our credit card defaulting which may incur late charges, service suspension and others.
+Now with Paythrough.'s online credit card bill payment services one can easily pay the bills online.
+You can use your debit card from other bank and clear your existing credit card bill online. paythrough.in supports credit card bill payments for all major banks. </p>
+                                    <div class="sub-image"><img src="http://emer.sudipchatterjee.com/PaythroughPlatformAPIServices/assets/images/subscribe2.jpg" class="mx-auto d-block rounded-circle"  alt="" title=""/></div>
+                                    <div class="pricetag"><i class="fas fa-rupee-sign"></i> 25000</div>
+                                    <div class="text-center">
+                                        <form method="post">
+                                            <button type="submit" style="cursor: pointer;border:none;"  name="buynowBtn" value=3 class="buynow-btn">Buy Now</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                                            </div>
+                </section>
+                <!-- Footer SECTION -->
+                <footer>
+                    <p>&copy; Copyright 2013 - 2020, <a href="https://www.paythrough.in/" target="_blank">Paythrough.</a> All rights reserved.</p>
+                </footer>
+            </div>
+        </div>
+   </body>
+</html>

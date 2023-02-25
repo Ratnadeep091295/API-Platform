@@ -1,0 +1,58 @@
+
+@media (max-width: 1300px) {
+
+  .main-panel .navbar .nav-item:not(:last-child) {
+    margin-right: 0;
+}
+}
+@media (max-width: 980px) {
+.ml-auto li {
+    padding-right: 0;
+}
+.searchbox-open {
+    width: 200px;
+}
+}
+@media (max-width: 800px) {
+.navbar-brand{ margin-right: 0; }
+.table-request {
+    font-size: 0.8rem;
+}
+}
+
+@media (min-width: 768px){
+.navbar-expand-md .navbar-nav .nav-link {
+    padding-right: 4px;
+    padding-left: 4px;
+    font-size: 1rem;
+}
+.navbar-top a {
+    font-size: 1rem;
+}
+
+}
+@media (max-width: 767px){
+.header .navbar-collapse {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80%;
+    z-index: 9;
+}
+.header .navbar-collapse .navbar-nav{ display: inline-block;
+    float: right;
+    flex-direction: initial;
+    width: 100%;}
+.header .navbar-collapse ul li:first-child{    float: left;
+    width: 80%;}   
+  .header .navbar-collapse ul li .notifications-list li{ width: 100%; }   
+  .searchbox-open {
+    width: 80%;
+}
+}
+@media (max-width: 500px){
+.tab-pane .buynow-btn {
+    margin-left: 0;
+}
+.header .navbar-collapse{ width: 70% }
+}
